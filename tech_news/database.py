@@ -2,6 +2,7 @@
 # chamar as funçoes
 # Atenção: este arquivo não deve ser alterado. Mudanças aqui não serão
 # refletidas no avaliador automático.
+# First commit: 2023-04-13
 
 from pymongo import MongoClient
 from decouple import config
