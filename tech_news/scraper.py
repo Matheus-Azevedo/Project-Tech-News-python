@@ -1,11 +1,24 @@
+import requests
+import time
+# from bs4 import BeautifulSoup
+
+
 # Requisito 1
 def fetch(url):
-    """Seu código deve vir aqui"""
+    headers = {'user-agent': 'Fake user-agent'}
+    time.sleep(1)
+    try:
+        response = requests.get(url, headers=headers, timeout=3)
+        response.raise_for_status()
+    except (requests.HTTPError, requests.ConnectionError, requests.Timeout):
+        return None
+    else:
+        return response.text
 
 
 # Requisito 2
 def scrape_updates(html_content):
-    """Seu código deve vir aqui"""
+    ...
 
 
 # Requisito 3
