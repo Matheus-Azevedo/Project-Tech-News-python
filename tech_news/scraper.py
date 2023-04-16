@@ -1,10 +1,11 @@
 import requests
 import time
+from parsel import Selector
 # from bs4 import BeautifulSoup
 
 
 # Requisito 1
-def fetch(url):
+def fetch(url: str) -> str:
     headers = {'user-agent': 'Fake user-agent'}
     time.sleep(1)
     try:
@@ -17,8 +18,10 @@ def fetch(url):
 
 
 # Requisito 2
-def scrape_updates(html_content):
-    ...
+def scrape_updates(html_content: str) -> list:
+    selector = Selector(html_content)
+    links = selector.css('h2.entry-title a::attr(href)').getall()
+    return links
 
 
 # Requisito 3
