@@ -1,8 +1,7 @@
 import requests
 import time
 from parsel import Selector
-from datetime import datetime
-# from bs4 import BeautifulSoup
+from tech_news.database import create_news
 
 
 # Requisito 1
@@ -50,4 +49,14 @@ def scrape_news(html_content):
 
 # Requisito 5
 def get_tech_news(amount):
-    """Seu código deve vir aqui"""
+    url = 'https://blog.betrybe.com'
+    page_content = fetch(url)
+    page_links = scrape_updates(page_content)
+    while len(page_links) < amount:
+        url = scrape_next_page_link(page_content)
+        page_content = fetch(url)
+        page_links.extend(scrape_updates(page_content))
+    news_content = [content for content in map(fetch, page_links[:amount])]
+    news_formatted = [scrape_news(content) for content in news_content]
+    create_news(news_formatted)
+    return news_formatted
